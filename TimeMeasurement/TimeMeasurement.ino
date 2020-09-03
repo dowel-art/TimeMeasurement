@@ -21,8 +21,8 @@ ballFlip bFlip;
 void setup() {
   pinMode(PIN_STEP, OUTPUT);
   pinMode(PIN_DIR, OUTPUT);
-  pinMode(PIN_SOL_FALL, OUTPUT);
-  pinMode(PIN_SOL_LINE, OUTPUT);
+  pinMode(PIN_SOL_DROP, OUTPUT);
+  pinMode(PIN_SOL_ROAD, OUTPUT);
   pinMode(PIN_SW, INPUT_PULLUP);
   pinMode(PIN_LED, OUTPUT);
   digitalWrite(PIN_STEP, LOW);
@@ -51,22 +51,23 @@ void setup() {
 }
 
 void loop() {
-  
-  //1.トリガー待ち
-  Serial.println("trigger waiting...");
-  digitalWrite(PIN_LED, HIGH);
-  while (1) {
+  delay(1000);
+  /*
+    //1.トリガー待ち
+    Serial.println("trigger waiting...");
+    digitalWrite(PIN_LED, HIGH);
+    while (1) {
     if (digitalRead(PIN_SW) == LOW)
-        break;
+      break;
     delay(10);
-  }
-  digitalWrite(PIN_LED, LOW);
-
+    }
+    digitalWrite(PIN_LED, LOW);
+  */
   //2.ボール落下
   Serial.println("ball fall");
   bFall.ballDrop(true);
   delay(FLIP_DELAY);
-  bFlip.flip(30); //打ち出し(引数:角度)
+  bFlip.flip(60); //打ち出し(引数:角度)
 
   //3.位置リセット
   delay(500);
@@ -85,8 +86,10 @@ void loop() {
   timeThen = millis();
   while (bFall.ballCheck() == false) {
     timeNow = millis();
-    if ((timeNow - timeThen) > TIMEOUT)
+    if ((timeNow - timeThen) > TIMEOUT) {
+      Serial.println("timeout");
       break;
+    }
   }
   delay(1000);
 }
