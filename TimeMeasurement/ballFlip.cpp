@@ -31,7 +31,6 @@ void ballFlip::flip(int deg) {
 
 //位置リセット
 void ballFlip::posReset() {
-  Serial.println("position resetting...");
   setDirection(DIR_RESET);
   while (checkSensor() == LOW) {
     step();
@@ -41,6 +40,6 @@ void ballFlip::posReset() {
 
 //センサチェック
 bool ballFlip::checkSensor() {
-  if (analogRead(PIN_SENSOR) > THRESHOLD_SENSOR) return true;
+  if (analogRead(PIN_PLATE_SENSOR) > THRESHOLD_PLATE) return true;
   else return false;
 }
