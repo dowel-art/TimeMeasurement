@@ -1,3 +1,9 @@
+/*
+   Dowel
+   ボール落下時間計測用ソースコード
+   20.09.03 Thu.
+*/
+
 #include <SPI.h>
 #include <HighPowerStepperDriver.h>
 #include "ballFall.h"
